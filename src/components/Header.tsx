@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   MenuIcon,
   CrossIcon,
@@ -12,9 +13,9 @@ import {
   PhoneIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const products: {
   name: string;
@@ -52,7 +53,7 @@ const callsToAction: { name: string; href: string; icon: LucideIcon }[] = [
 ];
 
 const Header = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   return (
     <header className="bg-[#013B94]">
@@ -68,8 +69,9 @@ const Header = () => {
         </div>
         <div className="flex lg:hidden">
           <Button
-            className="-m-2 5 inline-flex items-center justify-center rounded-md p-2 5 text-white"
+            className="-m-2 5 inline-flex items-center justify-center rounded-md p-2 5 text-white hover:text-white hover:bg-blue-800"
             type="button"
+            variant={"ghost"}
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open Main Menu</span>
@@ -154,6 +156,16 @@ const Header = () => {
           </a>
         </div>
       </nav>
+      <Sheet
+        open={mobileMenuOpen}
+        onOpenChange={(open) => setMobileMenuOpen(open)}
+      >
+        <div className="lg:hidden">
+          <SheetContent side="right">
+            <p>Boom</p>
+          </SheetContent>
+        </div>
+      </Sheet>
     </header>
   );
 };
