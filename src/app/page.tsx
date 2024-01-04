@@ -2,7 +2,7 @@ import { trending_data } from "@/data/trending";
 
 export default function Home() {
   return (
-    <main className="bg-[#013B94]">
+    <main>
       <section className="max-w-7xl mx-auto p-6">
         <h2 className="font-bold text-5xl text-white">Find your Next Stay</h2>
         <h3 className="text-white py-5 text-xl">
@@ -12,7 +12,7 @@ export default function Home() {
       <section className="m-4 mt-0 -mb-14 px-2 lg:px-4">
         {/* SearchForm */}
       </section>
-      <section className="mx-auto max-w-7xl mt-10 p-6 bg-white rounded-t-lg">
+      <section className="mx-auto max-w-7xl mt-10 p-6 bg-white rounded-lg">
         <div className="pt-5">
           <h3 className="text-xl font-bold">Trending Destination</h3>
           <p className="font-light">
