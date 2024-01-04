@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   MenuIcon,
-  CrossIcon,
+  XIcon,
   ChevronDownIcon,
   HomeIcon,
   SendHorizonalIcon,
@@ -16,6 +16,12 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./ui/collapsible";
+import { cn } from "@/lib/utils";
 
 const products: {
   name: string;
@@ -54,6 +60,8 @@ const callsToAction: { name: string; href: string; icon: LucideIcon }[] = [
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [mobileStaysCollapsibleOpen, setMobileStaysCollapsibleOpen] =
+    useState<boolean>(false);
 
   return (
     <header className="bg-[#013B94]">
@@ -162,7 +170,62 @@ const Header = () => {
       >
         <div className="lg:hidden">
           <SheetContent side="right">
-            <p>Boom</p>
+            <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-[#013B94] p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+              <div className="flex items-center justify-between">
+                <a href="#" className="-m-1.5 p-1.5">
+                  <span className="sr-only">Booking.com</span>
+                  <img src="/logo.png" alt="logo" className="h-8 w-auto" />
+                </a>
+                <button
+                  type="button"
+                  className="rounded-md text-white p-2.5 -m-1.5"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="sr-only">Close menu</span>
+                  <XIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="mt-6 flow-root">
+                <div className="-my-6 divide-y divide-gray-500/10">
+                  <div className="space-y-2 py-6">
+                    <Collapsible
+                      open={mobileStaysCollapsibleOpen}
+                      onOpenChange={setMobileStaysCollapsibleOpen}
+                    >
+                      <CollapsibleTrigger asChild>
+                        <div className="-mx-3">
+                          <Button
+                            variant={"ghost"}
+                            className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-white hover:text-white hover:bg-blue-800"
+                          >
+                            Stays
+                            <ChevronDownIcon
+                              className={cn(
+                                mobileStaysCollapsibleOpen ? "rotate-180" : "",
+                                "h-5 w-5 flex-none"
+                              )}
+                              aria-hidden="true"
+                            />
+                          </Button>
+                        </div>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        {[...products, ...callsToAction].map((product) => (
+                          <Link
+                            key={product.name}
+                            href={product.href}
+                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-white hover:bg-blue-800"
+                            onClick={() => setMobileStaysCollapsibleOpen(false)}
+                          >
+                            {product.name}
+                          </Link>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </div>
+                </div>
+              </div>
+            </div>
           </SheetContent>
         </div>
       </Sheet>
