@@ -7,6 +7,18 @@ export default function Home() {
           Search low prices on hostels, homes and much more...
         </h3>
       </section>
+      <section className="m-4 mt-0 -mb-14 px-2 lg:px-4">
+        {/* SearchForm */}
+      </section>
+      <section className="mx-auto max-w-7xl mt-10 p-6 bg-white rounded-t-lg">
+        <div className="pt-5">
+          <h3 className="text-xl font-bold">Trending Destination</h3>
+          <p className="font-light">
+            Most popular choices for traveller from around the world
+          </p>
+        </div>
+        <div className="flex space-x-4 py-5 overflow-x-scroll"></div>
+      </section>
     </main>
   );
 }
