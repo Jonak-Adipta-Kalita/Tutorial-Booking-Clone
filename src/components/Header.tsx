@@ -211,14 +211,14 @@ const Header = () => {
                       </CollapsibleTrigger>
                       <CollapsibleContent>
                         {[...products, ...callsToAction].map((product) => (
-                          <Link
+                          <a
                             key={product.name}
                             href={product.href}
                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-white hover:bg-blue-800"
                             onClick={() => setMobileStaysCollapsibleOpen(false)}
                           >
                             {product.name}
-                          </Link>
+                          </a>
                         ))}
                       </CollapsibleContent>
                     </Collapsible>
