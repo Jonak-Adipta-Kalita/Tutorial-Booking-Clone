@@ -58,6 +58,25 @@ const callsToAction: { name: string; href: string; icon: LucideIcon }[] = [
   { name: "Contact Support", href: "#", icon: PhoneIcon },
 ];
 
+const headerLinks: { name: string; href: string }[] = [
+  {
+    name: "Flights",
+    href: "#",
+  },
+  {
+    name: "Car Rentals",
+    href: "#",
+  },
+  {
+    name: "Attractions",
+    href: "#",
+  },
+  {
+    name: "Flight + Hotel",
+    href: "#",
+  },
+];
+
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [mobileStaysCollapsibleOpen, setMobileStaysCollapsibleOpen] =
@@ -145,18 +164,11 @@ const Header = () => {
               </div>
             </PopoverContent>
           </Popover>
-          <a href="#" className="header-item">
-            Flights
-          </a>
-          <a href="#" className="header-item">
-            Car Rentals
-          </a>
-          <a href="#" className="header-item">
-            Attractions
-          </a>
-          <a href="#" className="header-item">
-            Flight + Hotel
-          </a>
+          {headerLinks.map((link) => (
+            <a href={link.href} key={link.name} className="header-item">
+              {link.name}{" "}
+            </a>
+          ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold text-white leading-6">
@@ -222,6 +234,23 @@ const Header = () => {
                         ))}
                       </CollapsibleContent>
                     </Collapsible>
+                    {headerLinks.map((link) => (
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-blue-800"
+                      >
+                        {link.name}
+                      </a>
+                    ))}
+                  </div>
+                  <div className="py-6">
+                    <a
+                      href="#"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-blue-800"
+                    >
+                      Log In
+                    </a>
                   </div>
                 </div>
               </div>
