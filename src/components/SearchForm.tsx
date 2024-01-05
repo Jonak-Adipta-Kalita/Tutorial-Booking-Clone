@@ -18,6 +18,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { format } from "date-fns";
+import { Calendar } from "./ui/calendar";
 
 export const formSchema = z.object({
   location: z.string().min(2, "Please enter a valid location").max(50),
@@ -78,7 +79,60 @@ const SearchForm = (props: Props) => {
             )}
           />
         </div>
-        
+        <div className="formItem">
+          <FormField
+            control={form.control}
+            name="dates"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="text-white">Dates</FormLabel>
+                <FormMessage />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        id="date"
+                        name="dates"
+                        variant={"outline"}
+                        className={cn(
+                          "w-[300px] justify-start text-left font-normal",
+                          !field.value.from && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-3 h-4 w-4 opacity-50" />
+                        {field.value?.from ? (
+                          field.value?.to ? (
+                            <>
+                              {format(field.value?.from, "LLL dd yy")} -{" "}
+                              {format(field.value?.to, "LLL dd yy")}
+                            </>
+                          ) : (
+                            format(field.value?.from, "LLL dd yy")
+                          )
+                        ) : (
+                          <span>Select your dates</span>
+                        )}
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      initialFocus
+                      mode="range"
+                      selected={field.value}
+                      defaultMonth={field.value.from}
+                      onSelect={field.onChange}
+                      numberOfMonths={2}
+                      disabled={(date) =>
+                        date < new Date(new Date().setHours(0, 0, 0, 0))
+                      }
+                    />
+                  </PopoverContent>
+                </Popover>
+              </FormItem>
+            )}
+          />
+        </div>
       </form>
     </Form>
   );
