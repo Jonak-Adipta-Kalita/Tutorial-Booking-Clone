@@ -109,7 +109,7 @@ const Header = () => {
           <Popover>
             <PopoverTrigger asChild>
               <Button
-                className="flex items-center gap-x-1 header-item hover:bg-transparent hover:text-white"
+                className="flex items-center gap-x-1 headerItem hover:bg-transparent hover:text-white"
                 variant={"ghost"}
               >
                 Stays{" "}
@@ -165,7 +165,7 @@ const Header = () => {
             </PopoverContent>
           </Popover>
           {headerLinks.map((link) => (
-            <a href={link.href} key={link.name} className="header-item">
+            <a href={link.href} key={link.name} className="headerItem">
               {link.name}{" "}
             </a>
           ))}

@@ -76,7 +76,11 @@
 }
 
 @layer components {
-  .header-item {
+  .headerItem {
     @apply text-sm font-semibold leading-6 text-white hover:underline decoration-[1.5px] decoration-gray-200;
+  }
+
+  .formItem {
+    @apply grid w-full lg:max-w-sm items-center gap-1.5;
   }
 }
