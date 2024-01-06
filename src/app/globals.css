@@ -83,4 +83,8 @@
   .formItem {
     @apply grid w-full lg:max-w-sm items-center gap-1.5;
   }
+
+  .lastFormItem {
+    @apply grid items-center flex-1;
+  }
 }
