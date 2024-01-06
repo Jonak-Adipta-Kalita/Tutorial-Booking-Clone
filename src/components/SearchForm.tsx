@@ -21,19 +21,19 @@ import { format } from "date-fns";
 import { Calendar } from "./ui/calendar";
 
 export const formSchema = z.object({
-  location: z.string().min(2, "Please enter a valid location").max(50),
-  dates: z
-    .object({
-      from: z.date({ required_error: "Please select a check-in date" }),
-      to: z.date({ required_error: "Please select a check-out date" }),
-    })
-    .required(),
+  location: z
+    .string({ required_error: "Please enter a location" })
+    .min(2, { message: "Must be 2 or more characters long" })
+    .max(50, { message: "Must be 50 or fewer characters long" }),
+  dates: z.object({
+    from: z.date({ required_error: "Please select a check-in date" }),
+    to: z.date({ required_error: "Please select a check-out date" }),
+  }),
   adults: z
     .string()
-    .min(1, "Please select at least 1 adult")
-    .max(12, "Max 12 adults Occupancy"),
-  children: z.string().min(0).max(12, "Max 12 children Occupancy"),
-  rooms: z.string().min(1, "Please select at least 1 room"),
+    .regex(/^[1-9]+/, { message: "Atleast 1 Adult is required" }),
+  children: z.string().regex(/^[0-9]+/, { message: "You dumb or what?" }),
+  rooms: z.string().regex(/^[1-9]+/, { message: "Atleast 1 Room is required" }),
 });
 
 type Props = {};
@@ -88,7 +88,7 @@ const SearchForm = (props: Props) => {
           <FormField
             control={form.control}
             name="location"
-            render={(field) => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-white flex">
                   Location
@@ -96,7 +96,7 @@ const SearchForm = (props: Props) => {
                 </FormLabel>
                 <FormMessage />
                 <FormControl>
-                  <Input placeholder="Guwahati, Assam" {...field} />
+                  <Input placeholder="Guwahati" {...field} />
                 </FormControl>
               </FormItem>
             )}
