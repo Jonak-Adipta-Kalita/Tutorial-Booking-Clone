@@ -22,10 +22,12 @@ import { Calendar } from "./ui/calendar";
 
 export const formSchema = z.object({
   location: z.string().min(2, "Please enter a valid location").max(50),
-  dates: z.object({
-    from: z.date(),
-    to: z.date(),
-  }),
+  dates: z
+    .object({
+      from: z.date({ required_error: "Please select a check-in date" }),
+      to: z.date({ required_error: "Please select a check-out date" }),
+    })
+    .required(),
   adults: z
     .string()
     .min(1, "Please select at least 1 adult")
@@ -180,7 +182,10 @@ const SearchForm = (props: Props) => {
             />
           </div>
           <div className="mt-auto">
-            <Button type="submit" className="bg-blue-500 text-base">
+            <Button
+              type="submit"
+              className="bg-blue-500 text-base hover:bg-blue-600 hover:text-white"
+            >
               Search
             </Button>
           </div>
