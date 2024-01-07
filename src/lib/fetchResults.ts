@@ -124,8 +124,6 @@ export const fetchResults = async (searchParams: SearchParams) => {
     },
   };
 
-  console.log(username + ":" + password);
-
   return fetch("https://realtime.oxylabs.io/v1/queries", {
     method: "POST",
     body: JSON.stringify(body),
