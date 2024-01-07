@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const SearchLoadingPage = () => {
   return (
-    <section className="bg-white">
+    <section>
       <div className="mx-auto max-w-7xl">
         <p className="text-center animate-pulse font-bold text-[#013B94] pt-10">
           Sit tight - we're just scanning the market for the best deals!

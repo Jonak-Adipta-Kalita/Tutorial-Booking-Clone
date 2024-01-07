@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 const SearchPage = async ({ searchParams }: { searchParams: SearchParams }) => {
   if (!searchParams.url) return notFound();
 
-  const results = await fetchResults(searchParams);
+  const results = false;
 
   if (!results)
     return (
