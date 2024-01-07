@@ -15,6 +15,8 @@ const SearchPage = async ({ searchParams }: { searchParams: SearchParams }) => {
       </div>
     );
 
+  // TODO: Make Mobile UI Responsive
+
   return (
     <section>
       <div className="mx-auto max-w-7xl p-6 lg:px-8">
