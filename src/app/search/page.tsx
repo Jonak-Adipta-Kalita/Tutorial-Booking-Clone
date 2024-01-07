@@ -9,7 +9,7 @@ const SearchPage = async ({ searchParams }: { searchParams: SearchParams }) => {
 
   if (!results)
     return (
-      <div className="flex items-center justify-center mt-10 bg-white">
+      <div className="flex items-center justify-center mt-10">
         <p className="font-bold text-lg">No Results...</p>
       </div>
     );
