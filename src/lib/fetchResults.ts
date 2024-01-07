@@ -16,7 +16,7 @@ export const fetchResults = async (searchParams: SearchParams) => {
   });
 
   const body = {
-    soruce: "universal",
+    source: "universal",
     url: url.href,
     parse: true,
     render: "html",
@@ -46,12 +46,14 @@ export const fetchResults = async (searchParams: SearchParams) => {
             ],
           },
           description: {
-            _fns: {
-              _fn: "xpath_one",
-              _args: [
-                ".//h4[contains(@class, 'abf093bdfe e8f7c070a7')]/text()",
-              ],
-            },
+            _fns: [
+              {
+                _fn: "xpath_one",
+                _args: [
+                  ".//h4[contains(@class, 'abf093bdfe e8f7c070a7')]/text()",
+                ],
+              },
+            ],
           },
           booking_metadata: {
             _fns: [
@@ -76,13 +78,28 @@ export const fetchResults = async (searchParams: SearchParams) => {
               {
                 _fn: "xpath_one",
                 _args: [
-                  ".//span[contains(@class, 'f6431b446c fbfd7c1165 e84eb96b1f')]/text()",
+                  `.//span[contains(@class, 'f6431b446c fbfd7c1165 e84eb96b1f')]/text()`,
                 ],
               },
             ],
           },
           url: {
-            _fns: [{ _fn: "xpath_one", _args: [".//img/@src"] }],
+            _fns: [
+              {
+                _fn: "xpath_one",
+                _args: [".//img/@src"],
+              },
+            ],
+          },
+          rating_word: {
+            _fns: [
+              {
+                _fn: "xpath_one",
+                _args: [
+                  ".//div[@class='a3b8729ab1 e6208ee469 cb2cbb3ccb']/text()",
+                ],
+              },
+            ],
           },
           rating: {
             _fns: [
@@ -107,22 +124,24 @@ export const fetchResults = async (searchParams: SearchParams) => {
     },
   };
 
-  const data: { results: Result[] } = await (
-    await fetch("https://realtime.oxylabs.io/v1/queries", {
-      method: "POST",
-      body: JSON.stringify(body),
-      next: {
-        revalidate: 60 * 60, // cache for 1 hour
-      },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Basic " + Buffer.from(`${username}:${password}`).toString("base64"),
-      },
+  return fetch("https://realtime.oxylabs.io/v1/queries", {
+    method: "POST",
+    body: JSON.stringify(body),
+    next: {
+      revalidate: 60 * 60, // cache for 1 hour
+    },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization:
+        "Basic " + Buffer.from(`${username}:${password}`).toString("base64"),
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.results.length === 0) return;
+      const result: Result = data.results[0];
+
+      return result;
     })
-  ).json();
-
-  if (data.results.length === 0) return;
-
-  return data.results[0];
+    .catch((err) => console.log(err));
 };

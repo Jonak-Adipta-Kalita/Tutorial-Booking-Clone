@@ -3,7 +3,7 @@ import { trending_data } from "@/data/trending";
 
 export default function Home() {
   return (
-    <main className="bg-[#013B94]">
+    <main className="bg-[#013B94] xl:pb-2">
       <section className="max-w-7xl mx-auto p-6">
         <h2 className="font-bold text-3xl md:text-4xl lg:text-5xl text-white">
           Find your Next Stay
